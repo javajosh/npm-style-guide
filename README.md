@@ -149,6 +149,36 @@ npm install -g grunt-cli grunt
 
 ## Use npm modules for system tasks
 
+(@javajosh: Okay, I don't really agree with this one. I think it's perfectly okay to think in terms of "strings that you emit into the surrounding operating system", in which case it makes more sense to think about all the platforms you want to support, and provide the equivalent string for all of them. This also keeps things simpler, and is much easier to debug. When the inevitable variations come in, thanks to other elements of users environments being different, it is much easier to confront that family of problems as a tree of related strings, as opposed to...whatever it is when you do it this way. (Partly this is also to preserve my own bias that "module" should be bigger than just "mkdir"! There is more than a little similarity to the ORM vs "SQL String" spectrum of solutions to database interaction. Personally, I really appreciate Strings. It is okay if they are somewhat coupled to the program that consumes them! That is inevitable. In fact, I would even argue that it's a good thing because you can characterize a module as triggered when a string gets too long...)
+
+
+```
+macos (bsd) (tcp/ip, dns, net, clock, disk, usb, bt, cam, mic, key, touch, mouse, screen, proc)
+	safari chrome
+	terminal iterm (oh-my-zsh, autojump, ag, nvalt)
+	homebrew
+	erlang
+	java/kotlin/clojure/groovy
+	maven/gradle
+	nvm/node/npm/yarn
+	virtualbox + alpine,nixos,freebsd,win10
+	postgresql
+	bootsrap, react/redux/angular/vue, Elixer
+	Dropwizard (Jetty), Spring, 
+	c/rust/go/clang/llvm/gcc/make
+	python3
+	redis
+	sshd
+	nginx
+	sublime
+	intellij
+	vim
+```
+
+Each of these, in turn, has many versions and are highly configurable. Wouldn't it be nice if we could just have all the versions and easily change configuration when we need to? The remarkable fact is that we can, but it requires the adoption of some habits and tools. Users cannot trust applications to do the right thing! In fact, quite the opposite. And its time for those that profit from this quiet exfiltration of data to explain themselves (says the naive idealist). But, the more seasoned practical person sees an opportunity: there is an asymmetry here, and a substantial one. That means that there is a big product.
+
+What if applications were routinely written in such a way that allowed multiple versions to be stored? Maven already does this, by just caching, locally, all versions of all libraries you or your dependencies ever required, using the file-system as a simple but effective database. It's also rather wasteful (how wasteful depends on the product, but this is a good reason to keep your bundles as small as possible). With open source libraries, especially using git, you can do better - try to build everything from scratch. If you can make it work, now you can move the working directory around at will. If the project supplies a Dockerfile for a working development environment, by all means use it! by a) depending on your locally checked out and built version, and b) getting the library to build. Now you can have any version you want (that you have in the git repo) by just changing the contents of the working directory with git commands.
+
 ### Why?
 
 When you use system specific commands like `rm -rf` or `&&`, you are locking your tasks to your current operating system. If you want to make your scripts work everywhere think about Windows developers also.
